@@ -132,4 +132,7 @@ public class MemoryComponent extends AbstractComponent {
             m_availableMemPercent, m_usedMemPercent, m_cacheMemPercent, m_bufferMemPercent);
     }
 
+    public float getMemoryUsage() {
+        return m_usedMemPercent;
+    }
 }

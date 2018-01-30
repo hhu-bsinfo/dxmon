@@ -151,4 +151,11 @@ public class DiskComponent extends AbstractComponent {
             m_writeSpeed, m_readSpeed);
     }
 
+    public float getReadPercent() {
+        return m_readPercent;
+    }
+
+    public float getWritePercent() {
+        return m_writePercent;
+    }
 }

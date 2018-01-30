@@ -153,4 +153,12 @@ public class CpuComponent extends AbstractComponent {
                 m_idleUsage);
     }
 
+    public float getCpuUsage() {
+        return m_cpuUsage;
+    }
+
+    public float[] getCpuLoads() {
+        return m_loads;
+    }
+
 }

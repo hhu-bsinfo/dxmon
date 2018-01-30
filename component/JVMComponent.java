@@ -263,4 +263,20 @@ public class JVMComponent extends AbstractComponent {
             (long) m_oldUsed, m_oldUsed / m_oldCommitted, builder.toString());
     }
 
+    public float getHeapUsage() {
+        return m_heapUsed;
+    }
+
+    public float getEdenUsage() {
+        return m_edenUsed;
+    }
+
+    public float getSurvivorUsage() {
+        return m_survivorUsed;
+    }
+
+    public float getOldUsage() {
+        return m_oldUsed;
+    }
+
 }

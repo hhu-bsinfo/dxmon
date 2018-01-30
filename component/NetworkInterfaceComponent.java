@@ -170,4 +170,20 @@ public class NetworkInterfaceComponent extends AbstractComponent {
             m_currState.getTransmitDrops());
     }
 
+    public float getReceiveThroughput() {
+        return m_rthroughput;
+    }
+
+    public float getReceiveError() {
+        return m_rerror;
+    }
+
+    public float getTransmitThroughput() {
+        return m_sthroughput;
+    }
+
+    public float getTransmitError() {
+        return m_serror;
+    }
+
 }
