@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Heinrich-Heine-Universitaet Duesseldorf, Institute of Computer Science, Department Operating Systems
+ * Copyright (C) 2017 Heinrich-Heine-Universitaet Duesseldorf, Institute of Computer Science, Department Operating Systems
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -11,21 +11,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package de.hhu.bsinfo.dxmonitor.error;
+package de.hhu.bsinfo.dxmonitor.state;
 
 /**
- * @author Burak Akguel, burak.akguel@hhu.de, 23.11.17
+ * Exception for State interface thrown on update()
+ *
+ * @author Stefan Nothaas, stefan.nothaas@hhu.de, 20.02.2018
  */
-public class NoValidDiskException extends Exception {
-
+public class StateUpdateException extends Exception {
     /**
-     * Exception for invalid disk name.
+     * Constructor
      *
-     * @param p_name
-     *     disk name
+     * @param p_reason Exception reason
      */
-    public NoValidDiskException(final String p_name) {
-        super("Error: " + p_name + " is not a valid disk identifier!");
+    public StateUpdateException(final String p_reason) {
+        super(p_reason);
     }
-
 }

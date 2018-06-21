@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Heinrich-Heine-Universitaet Duesseldorf, Institute of Computer Science, Department Operating Systems
+ * Copyright (C) 2017 Heinrich-Heine-Universitaet Duesseldorf, Institute of Computer Science, Department Operating Systems
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -11,19 +11,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package de.hhu.bsinfo.dxmonitor.error;
+package de.hhu.bsinfo.dxmonitor.state;
+
+import de.hhu.bsinfo.dxmonitor.CSVPrinter;
 
 /**
- * @author Burak Akguel, burak.akguel@hhu.de, 23.11.17
+ * Interface for a state, e.g. CPU, memory, network
+ *
+ * @author Burak Akguel, burak.akguel@hhu.de, 23.11.2017
+ * @author Stefan Nothaas, stefan.nothaas@hhu.de, 20.02.2018
  */
-public class UnsupportedInterfaceException extends Exception {
+public interface State extends CSVPrinter {
+
     /**
-     * Throws an exception because the given interface name is invalid.
-     *
-     * @param p_intfName
-     *     name of the network interface
+     * Update the current state object by updating all stored state data
+     * @throws StateUpdateException If updating the state failed
      */
-    public UnsupportedInterfaceException(final String p_intfName) {
-        super(p_intfName + " is at the moment an unsupported network interface.");
-    }
+    void update() throws StateUpdateException;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Heinrich-Heine-Universitaet Duesseldorf, Institute of Computer Science, Department Operating Systems
+ * Copyright (C) 2017 Heinrich-Heine-Universitaet Duesseldorf, Institute of Computer Science, Department Operating Systems
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -11,20 +11,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package de.hhu.bsinfo.dxmonitor.error;
+package de.hhu.bsinfo.dxmonitor.monitor;
+
+import de.hhu.bsinfo.dxmonitor.state.State;
 
 /**
- * @author Burak Akguel, burak.akguel@hhu.de, 23.11.17
+ * Interface for a monitor
+ *
+ * @author Burak Akguel, burak.akguel@hhu.de, 23.11.2017
+ * @author Stefan Nothaas, stefan.nothaas@hhu.de, 20.02.2018
  */
-public class NoNICException extends Exception {
-
-    /**
-     * Throws an Exception for undefined nic.
-     *
-     * @param p_nic
-     *     Network Interface Controller
-     */
-    public NoNICException(final String p_nic) {
-        super("Error: Network-Interface-Controller named " + p_nic + " is not defined !");
-    }
+public interface Monitor extends State {
+    // no further methods
 }
