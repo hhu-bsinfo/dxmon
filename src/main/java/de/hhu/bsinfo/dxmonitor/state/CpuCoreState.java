@@ -31,7 +31,7 @@ public class CpuCoreState implements State {
     private final ProcSysFileReader m_reader;
 
     private final int m_coreId;
-    private final int[] m_stats;
+    private final long[] m_stats;
 
     /**
      * Constructor
@@ -54,7 +54,7 @@ public class CpuCoreState implements State {
         m_coreId = p_coreId;
 
         // 0 usr - 1 nice - 2 sys - 3 idle - 4 iowait - 5 irq - 6 softirq - 7 total
-        m_stats = new int[8];
+        m_stats = new long[8];
     }
 
     /**
@@ -67,56 +67,56 @@ public class CpuCoreState implements State {
     /**
      * Returns the number of clock cycles (in Jiffies) that processes have spent in user mode on this core/cpu
      */
-    public int getUsr() {
+    public long getUsr() {
         return m_stats[0];
     }
 
     /**
      * Returns the number of clock cycles that niced processes have spent in user mode on this core/cpu
      */
-    public int getNice() {
+    public long getNice() {
         return m_stats[1];
     }
 
     /**
      * Returns the number of clock cycles that processes have spent in kernel mode on this core/cpu
      */
-    public int getSys() {
+    public long getSys() {
         return m_stats[2];
     }
 
     /**
      * Returns the number of clock cycles where the cpu/core was doing nothing
      */
-    public int getIdle() {
+    public long getIdle() {
         return m_stats[3];
     }
 
     /**
      * Returns the number of clock cycles this core have spent waiting for I/O to complete
      */
-    public int getIoWait() {
+    public long getIoWait() {
         return m_stats[4];
     }
 
     /**
      * Returns the number of clock cycles that this core have spent for servicing interrupts
      */
-    public int getIrq() {
+    public long getIrq() {
         return m_stats[5];
     }
 
     /**
      * Returns the number of clock cycles that this core have spent for servicing software interrupts
      */
-    public int getSoftIrq() {
+    public long getSoftIrq() {
         return m_stats[6];
     }
 
     /**
      * Returns the total number of clock cycles.
      */
-    public int getTotal() {
+    public long getTotal() {
         return m_stats[7];
     }
 
@@ -153,7 +153,7 @@ public class CpuCoreState implements State {
         m_stats[7] = 0;
 
         for (int i = 0; i < 7; i++) {
-            m_stats[i] = Integer.parseInt(tokenizer.nextToken());
+            m_stats[i] = Long.parseLong(tokenizer.nextToken());
 
             // sum the total amount of cpu time spent
             m_stats[7] += m_stats[i];
