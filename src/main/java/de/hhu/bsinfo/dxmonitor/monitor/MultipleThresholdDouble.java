@@ -1,5 +1,24 @@
+/*
+ * Copyright (C) 2017 Heinrich-Heine-Universitaet Duesseldorf, Institute of Computer Science, Department Operating Systems
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
 package de.hhu.bsinfo.dxmonitor.monitor;
 
+/**
+ * A threshold defined by a long value with an installed callback (In this case the Callback Function will be called if
+ * the threshold is exceeded multiple times.
+ *
+ * @author Burak Akguel, burak.akguel@hhu.de, 14.07.2018
+ */
 public class MultipleThresholdDouble {
 
     /**
@@ -38,6 +57,7 @@ public class MultipleThresholdDouble {
      * @param p_value Threshold value
      * @param p_exceed True to trigger callback on exceeding the value, false on deceeding it
      * @param p_callback Callback to call if the threshold is hit
+     * @param p_cnt how often does the threshold need to be exceed
      */
     public MultipleThresholdDouble(final String p_name, final double p_value, final boolean p_exceed, final int p_cnt,
                            final CallbackFunction p_callback) {
@@ -52,6 +72,7 @@ public class MultipleThresholdDouble {
      * @param p_exceed True to trigger callback on exceeding the value, false on deceeding it
      * @param p_callbackLimit Callback limit count (0 unlimited) on threshold hit
      * @param p_callback Callback to call if the threshold is hit and the limit not exceeded
+     * @param p_cnt how often does the threshold need to be exceed
      */
     public MultipleThresholdDouble(final String p_name, final double p_value, final boolean p_exceed,
                                    final int p_cnt, final long p_callbackLimit, final CallbackFunction p_callback) {

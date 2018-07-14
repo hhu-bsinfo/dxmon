@@ -29,32 +29,62 @@ public class JVMThreadsState implements State {
     private ThreadMXBean m_threadMxBean;
     private List<JVMThreadState> m_threads;
 
-
+    /**
+     * Constructor
+     */
     public JVMThreadsState() {
         m_threadMxBean = new JVMState().getThreadMXBean();
         m_threads = new ArrayList<JVMThreadState>();
     }
 
+    /**
+     * Returns the amount of daemon threads.
+     * @return daemon thread count
+     */
     public long getDaemonThreadCount() {
         return m_threadMxBean.getDaemonThreadCount();
     }
 
+
+    /**
+     * Returns the amount threads.
+     * @return thread count
+     */
     public long getThreadCount() {
         return m_threadMxBean.getThreadCount();
     }
 
+    /**
+     * Returns the amount of non-daemon threads.
+     * @return non-daemon thread count
+     */
     public long getNonDaemonThreadCount() {
         return getThreadCount() - getDaemonThreadCount();
     }
 
+
+    /**
+     * Returns the peak thread count.
+     * @return peak thread count
+     */
     public long getPeakThreadCount() {
         return m_threadMxBean.getPeakThreadCount();
     }
 
+
+    /**
+     * Returns a list of all threads id's.
+     * @return list with all thread id's
+     */
     public long[] getThreadIDs() {
         return m_threadMxBean.getAllThreadIds();
     }
 
+
+    /**
+     * Returns all JVMThreadStates.
+     * @return list with JVMThreadStates
+     */
     public List<JVMThreadState> getJVMThreadStates() {
         return m_threads;
     }
@@ -73,8 +103,10 @@ public class JVMThreadsState implements State {
 
     @Override
     public void update() throws StateUpdateException {
+        // remove all JVMThreadStates
         m_threads.clear();
-        for(long tid : getThreadIDs()) { // TODO find more efficient solution to update jvm threads
+        // need to call getThreadIDs() on each update because new threads can be spawned or old ones cann be destroyed
+        for(long tid : getThreadIDs()) {
             m_threads.add(new JVMThreadState(tid));
         }
     }

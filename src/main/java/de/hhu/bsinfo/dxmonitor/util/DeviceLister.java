@@ -15,6 +15,10 @@ public class DeviceLister {
     private static final String PROC_DISKS = "/proc/partitions";
     private static final String SYS_IB = "/sys/class/infiniband";
 
+    /**
+     * Returns a list of available infiniband devices
+     * @return list of ib devs
+     */
     public static ArrayList<String> getIBs() {
         ArrayList<String> out = new ArrayList<>();
 
@@ -30,15 +34,29 @@ public class DeviceLister {
         return out;
     }
 
+    /**
+     * Returns a list of all available nics
+     * @return List with NICs
+     */
     public static ArrayList<String> getNICs() {
         return getContent(PROC_NICS, s -> s.substring(0, s.indexOf(':')).trim());
     }
 
+    /**
+     * Returns a list of all disks
+     * @return List with disks
+     */
     public static ArrayList<String> getDisks() {
         return getContent(PROC_DISKS, s -> s.substring(s.lastIndexOf(' ')).trim());
     }
 
 
+    /**
+     * Helper method to read and parse certain proc files
+     * @param p_path File path
+     * @param p_filterFunction A function to filter each file in its own way
+     * @return List of filtered entries from a given path
+     */
     private static ArrayList<String> getContent(final String p_path, final Function<String, String> p_filterFunction) {
         String[]  fileContent = null;
         try {

@@ -40,6 +40,10 @@ public class DiskProgress implements Progress {
     private long m_wBytes;
     private float m_wThroughput;
 
+    /**
+     * Constructor
+     * @param p_name Disk Identifier
+     */
     public DiskProgress(final String p_name) {
         m_lastState = new DiskState(p_name);
         m_currentState = new DiskState(p_name);
@@ -49,24 +53,42 @@ public class DiskProgress implements Progress {
         m_lastTimeStamp = m_currentTimeStamp;
     }
 
+    /**
+     * Returns the total amount of occurred operations.
+     * @return Total op count
+     */
     public long getTotalOperationCount() {
         return m_totalOpCount;
     }
 
-    /****** Read Methods ******/
-
+    /**
+     * Returns
+     * @return Read Throughput
+     */
     public float getReadThroughput() {
         return m_rThroughput;
     }
 
+    /**
+     * Returns the total amount of occurred read operations.
+     * @return Total read op count
+     */
     public long getReadCount() {
         return m_rCount;
     }
 
+    /**
+     * Returns amount of read bytes.
+     * @return Amount of read bytes.
+     */
     public long getReadBytes() {
         return m_rBytes;
     }
 
+    /**
+     * Returns read usage.
+     * @return Read usage.
+     */
     public float getReadUsage() {
         if (m_totalOpCount <= 0) {
             return 0;
@@ -74,24 +96,44 @@ public class DiskProgress implements Progress {
         return ((float)m_rCount) / m_totalOpCount;
     }
 
+    /**
+     * Returns read usage in percent.
+     * @return Read usage in percent
+     */
     public float getReadUsagePercentage() {
         return getReadUsage() * 100;
     }
 
-    /****** Write Methods ******/
 
+    /**
+     * Returns write throughput.
+     * @return Write Throughput
+     */
     public float getWriteThroughput() {
         return m_wThroughput;
     }
 
+
+    /**
+     * Returns the total amount of occurred write operations.
+     * @return Total write op count
+     */
     public long getWriteCount() {
         return m_wCount;
     }
 
+    /**
+     * Returns amount of written bytes
+     * @return written bytes
+     */
     public long getWriteBytes() {
         return m_wBytes;
     }
 
+    /**
+     * Returns Write Usage.
+     * @return Write usage
+     */
     public float getWriteUsage() {
         if (m_totalOpCount <= 0) {
             return 0;
@@ -99,12 +141,14 @@ public class DiskProgress implements Progress {
         return ((float)m_wCount) / m_totalOpCount;
     }
 
+    /**
+     * Returns Write Usage in percent.
+     * @return Write usage in percent
+     */
     public float getWriteUsagePercentage() {
         return getWriteUsage() * 100;
     }
 
-
-    /****** Interface Methods ******/
 
     @Override
     public void update() throws StateUpdateException {

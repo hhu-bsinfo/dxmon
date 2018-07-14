@@ -42,6 +42,10 @@ public class NetworkProgress implements Progress {
     private long m_tError;
     private long m_tDrop;
 
+    /**
+     * Constructor
+     * @param p_name NIC Identifier
+     */
     public NetworkProgress(final String p_name) {
         m_lastState = new NetworkState(p_name);
         m_currentState = new NetworkState(p_name);
@@ -51,110 +55,199 @@ public class NetworkProgress implements Progress {
         m_lastTimeStamp = m_currentTimeStamp;
     }
 
-
-    /****** Receive Getter ******/
-
-
+    /**
+     * Amount of received bytes.
+     * @return received byte count
+     */
     public long getReceiveBytes() {
         return m_rBytes;
     }
 
+    /**
+     * Return the "current" receive Throughput.
+     * @return Receive Throughput
+     */
     public float getReceiveThroughput() {
         return m_rThroughput;
     }
 
+    /**
+     * Returns amount of received packets.
+     * @return Receive packet count
+     */
     public long getReceivePacketCount() {
         return m_rPacket;
     }
 
+    /**
+     * Returns amount of received packets which were faulty.
+     * @return received but faulty packet count
+     */
     public long getReceivePacketErrorCount() {
         return m_rError;
     }
 
+    /**
+     * Returns amount of received packet which were dropped.
+     * @return received but dropped packet count
+     */
     public long getReceivePacketDropCount() {
         return m_rDrop;
     }
 
+    /**
+     * Returns amount of received packets which were correct.
+     * @return (successfully) received packet count
+     */
     public long getReceivePacketSuccessCount() {
         return m_rPacket - (m_rError + m_rDrop);
     }
 
+    /**
+     * Returns Receive Error Usage.
+     * @return Receive Error Usage
+     */
     public float getReceiveErrorUsage() {
         return ((float) getReceivePacketErrorCount()) / getReceivePacketCount();
     }
 
+    /**
+     * Returns Receive Drop Usage.
+     * @return Receive Drop Usage
+     */
     public float getReceiveDropUsage() {
         return ((float) getReceivePacketDropCount()) / getReceivePacketCount();
     }
 
+    /**
+     * Returns Receive Success Usage.
+     * @return Receive Success Usage
+     */
     public float getReceiveSuccessUsage() {
         return ((float) getReceivePacketSuccessCount()) / getReceivePacketCount();
     }
 
+    /**
+     * Returns Receive Error Usage in percent.
+     * @return Receive Error Usage in percent
+     */
     public float getReceiveErrorUsagePercent() {
         return getReceiveErrorUsage() * 100;
     }
 
+    /**
+     * Returns Receive Drop Usage in percent.
+     * @return Receive Drop Usage in percent
+     */
     public float getReceiveDropUsagePercent() {
         return getReceiveDropUsage() * 100;
     }
 
+    /**
+     * Returns Receive Success Usage in percent.
+     * @return Receive Success Usage in percent
+     */
     public float getReceiveSuccessUsagePercent() {
         return getReceiveSuccessUsage() * 100;
     }
 
-    /****** Transmit Getter ******/
-
-
+    /**
+     * Amount of transmitted bytes.
+     * @return transmitted byte count
+     */
     public long getTransmitBytes() {
         return m_tBytes;
     }
 
+    /**
+     * Return the "current" transmit Throughput.
+     * @return Transmit Throughput
+     */
     public float getTransmitThroughput() {
         return m_tThroughput;
     }
 
+    /**
+     * Return the amount of transmitted packets.
+     * @return send packet count
+     */
     public long getTransmitPacketCount() {
         return m_tPacket;
     }
 
+
+    /**
+     * Returns amount of transmitted packets which were faulty.
+     * @return transmitted but faulty packet count
+     */
     public long getTransmitPacketErrorCount() {
         return m_tError;
     }
 
+    /**
+     * Returns amount of transmitted packets which were dropped.
+     * @return transmitted but dropped packet count
+     */
     public long getTransmitPacketDropCount() {
         return m_tDrop;
     }
 
+    /**
+     * Returns amount of transmitted packets which were successful.
+     * @return successfully transmitted packet count
+     */
     public long getTransmitPacketSuccessCount() {
         return m_tPacket - (m_tError + m_tDrop);
     }
 
+    /**
+     * Returns Transmit Error Usage.
+     * @return Transmit Error Usage
+     */
     public float getTransmitErrorUsage() {
         return ((float) getTransmitPacketErrorCount()) / getTransmitPacketCount();
     }
 
+    /**
+     * Returns Transmit Drop Usage.
+     * @return Transmit Drop Usage
+     */
     public float getTransmitDropUsage() {
         return ((float) getTransmitPacketDropCount()) / getTransmitPacketCount();
     }
 
+    /**
+     * Returns Transmit Success Usage.
+     * @return Transmit Success Usage
+     */
     public float getTransmitSuccessUsage() {
         return ((float) getTransmitPacketSuccessCount()) / getTransmitPacketCount();
     }
 
+    /**
+     * Returns Transmit Error Usage in percent.
+     * @return Transmit Error Usage in percent.
+     */
     public float getTransmitErrorUsagePercent() {
         return getTransmitErrorUsage() * 100;
     }
 
+
+    /**
+     * Returns Transmit Drop Usage in percent.
+     * @return Transmit Drop Usage in percent.
+     */
     public float getTransmitDropUsagePercent() {
         return getTransmitDropUsage() * 100;
     }
 
+    /**
+     * Returns Transmit Success Usage in percent.
+     * @return Transmit Success Usage in percent.
+     */
     public float getTransmitSuccessUsagePercent() {
         return getTransmitSuccessUsage() * 100;
     }
-
-    /****** Interface Methods ******/
 
     @Override
     public void update() throws StateUpdateException {
