@@ -16,6 +16,7 @@ package de.hhu.bsinfo.dxmonitor.info;
 import java.util.Arrays;
 
 import de.hhu.bsinfo.dxmonitor.state.MemState;
+import de.hhu.bsinfo.dxmonitor.state.StateUpdateException;
 import de.hhu.bsinfo.dxmonitor.state.SystemState;
 import de.hhu.bsinfo.dxmonitor.util.DeviceLister;
 
@@ -40,51 +41,58 @@ public class InstanceInfo {
     public static String compile() {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("System");
-        builder.append("  User:");
+        builder.append("System\n");
+        builder.append("  User: ");
         builder.append(SystemState.getUserName());
         builder.append('\n');
-        builder.append("  Cwd:");
+        builder.append("  Cwd: ");
         builder.append(SystemState.getCurrentWorkingDirectory());
         builder.append('\n');
-        builder.append("  PID:");
+        builder.append("  PID: ");
         builder.append(SystemState.getCurrentPID());
         builder.append('\n');
-        builder.append("  Kernel:");
+        builder.append("  Kernel: ");
         builder.append(SystemState.getKernelVersion());
         builder.append('\n');
-        builder.append("  Distribution:");
+        builder.append("  Distribution: ");
         builder.append(SystemState.getDistribution());
         builder.append('\n');
-        builder.append("  Hostname:");
+        builder.append("  Hostname: ");
         builder.append(SystemState.getHostName());
         builder.append('\n');
-        builder.append("  Uptime (sec):");
+        builder.append("  Uptime (sec): ");
         builder.append(SystemState.getUptimeSec());
         builder.append('\n');
 
-        builder.append("Java");
-        builder.append("  Version:");
+        builder.append("Java\n");
+        builder.append("  Version: ");
         builder.append(JVMInfo.getVersion());
         builder.append('\n');
-        builder.append("  VM Name:");
+        builder.append("  VM Name: ");
         builder.append(JVMInfo.getVmName());
         builder.append('\n');
-        builder.append("  VM Vendor:");
+        builder.append("  VM Vendor: ");
         builder.append(JVMInfo.getVmVendor());
         builder.append('\n');
-        builder.append("  VM Version:");
+        builder.append("  VM Version: ");
         builder.append(JVMInfo.getVmVersion());
         builder.append('\n');
 
-        builder.append("Hardware");
-        builder.append("  Memory:");
-        builder.append(new MemState());
-        builder.append('\n');
-        builder.append("  NICs:");
+        builder.append("Hardware\n");
+
+        try {
+            MemState memState = new MemState();
+            builder.append("  Memory: ");
+            memState.update();
+            builder.append(memState);
+            builder.append('\n');
+        } catch (StateUpdateException ignored) {
+        }
+
+        builder.append("  NICs: ");
         builder.append(Arrays.toString(DeviceLister.getNICs().toArray()));
         builder.append('\n');
-        builder.append("  Disks:");
+        builder.append("  Disks: ");
         builder.append(Arrays.toString(DeviceLister.getDisks().toArray()));
 
         return builder.toString();
