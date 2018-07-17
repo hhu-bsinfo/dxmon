@@ -17,6 +17,7 @@ import de.hhu.bsinfo.dxmonitor.util.ProcSysFileReader;
 import de.hhu.bsinfo.dxutils.unit.TimeUnit;
 
 import java.io.IOException;
+import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -71,6 +72,15 @@ public final class SystemState {
      */
     public static String getCurrentWorkingDirectory() {
         return ms_cwd;
+    }
+
+    /**
+     * Get the PID of the currently running process
+     *
+     * @return PID of current process
+     */
+    public static int getCurrentPID() {
+        return Integer.parseInt(ManagementFactory.getRuntimeMXBean().getName().split("@")[0]);
     }
 
     /**
