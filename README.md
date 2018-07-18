@@ -26,7 +26,20 @@ DXMon uses gradle as its build system and comes with a gradle-wrapper included, 
 If you just want to see some CPU and memory statistics, you can use the following command to start DXMon with the preimplemented _MonitorTest_ class as classpath ```java -cp dxmon-1.0.0.jar de.hhu.bsinfo.dxmonitor.monitor.MonitorTest```. Nevertheless we recommend implemeting own classes.
 
 
-# License
+## Architecture
+
+DXMon has a modular structure. DXMon can be devided into three types of layers: __states__, __progresses__ and __monitors__. 
+
+State classes only manage the read state. The data mainly read periodically from the proc file system. Only the JVM data is read out using the 
+__J__ava __M__anagement __E__xtentsions.
+Progress classes use the state classes to perform calculations periodically over a certain period of time. There is no monitoring logic at this point. 
+The monitor classes contain the __real__ monitoring. Threshold classes are used to evaluate the collected/calculated data and may call a callback function. A callback function can be called several times.
+
+An illustration is shown below for clarification:
+<img src="./img/arch.png" alt="drawing" width="800" height="354" />
+
+
+## License
 
 Copyright (C) 2018 Heinrich-Heine-Universitaet Duesseldorf, 
 Institute of Computer Science, Department Operating Systems. 
