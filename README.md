@@ -28,12 +28,12 @@ If you just want to see some CPU and memory statistics, you can use the followin
 
 ## Architecture
 
-DXMon has a modular structure. DXMon can be devided into three types of layers: __states__, __progresses__ and __monitors__. 
+DXMon has a modular structure. The class hierarchy can be devided into three types of layers: **states**, **progresses** and **monitors**. 
 
 State classes only manage the read state. The data mainly read periodically from the proc file system. Only the JVM data is read out using the 
-__J__ava __M__anagement __E__xtentsions.
+**J**ava **M**anagement E**x**tentsions.
 Progress classes use the state classes to perform calculations periodically over a certain period of time. There is no monitoring logic at this point. 
-The monitor classes contain the __real__ monitoring. Threshold classes are used to evaluate the collected/calculated data and may call a callback function. A callback function can be called several times.
+The monitor classes contain the _real_ monitoring. Threshold classes are used to evaluate the collected/calculated data and may call a callback function. A callback function can be called several times.
 
 An illustration is shown below for clarification:
 <img src="./img/arch.png" alt="drawing" width="800" height="354" />
