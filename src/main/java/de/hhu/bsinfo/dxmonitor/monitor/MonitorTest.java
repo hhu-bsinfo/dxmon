@@ -33,12 +33,14 @@ public class MonitorTest {
     }
 
     private final CpuMonitor m_cpuMonitor;
+    private final MemMonitor m_memMonitor;
 
     /**
      * Constructor
      */
     public MonitorTest() {
         m_cpuMonitor = new CpuMonitor();
+        m_memMonitor = new MemMonitor();
 
         //m_cpuMonitor.addThresholdCpuUsagePercent(new ThresholdDouble("CpuUsage1", 10.0, true,
         //        this::callbackCpuUsageThresholdExceed));
@@ -53,9 +55,13 @@ public class MonitorTest {
         while (true) {
             try {
                 m_cpuMonitor.update();
+                m_memMonitor.update();
             } catch (StateUpdateException e) {
                 e.printStackTrace();
             }
+
+            System.out.println("Cpu: " + m_cpuMonitor.getProgress().toString() + "\n");
+            System.out.println("Memory: " + m_memMonitor.getState().toString() + "\n");
 
             try {
                 Thread.sleep(1000);
