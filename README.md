@@ -1,5 +1,7 @@
 # DXMon
 
+[![Build Status](https://travis-ci.org/hhu-bsinfo/dxmon.svg?branch=development)](https://travis-ci.org/hhu-bsinfo/dxmon)
+
 DXMon is a standalone monitoring-framework for Linux but also part of the distributed In-Memory key-value storage [DXRAM](https://github.com/hhu-bsinfo/dxram).
 It is implemented in Java and uses the _proc_ virtual filesystem to collect monitoring information. 
 
