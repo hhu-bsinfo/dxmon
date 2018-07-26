@@ -16,3 +16,13 @@ jobs:
       script: ./gradlew artifactoryPublish --exclude-task test -Dsnapshot=true -Dbintray.user=${BINTRAY_USER} -Dbintray.key=${BINTRAY_KEY} -Dbuild.number=${TRAVIS_BUILD_NUMBER}
     - stage: release
       script: ./gradlew bintrayUpload --exclude-task test -Dbintray.user=${BINTRAY_USER} -Dbintray.key=${BINTRAY_KEY} -Dbuild.number=${TRAVIS_BUILD_NUMBER}
+
+deploy:
+  provider: releases
+  api_key: ${ACCESS_TOKEN}
+  skip_cleanup: true
+  file: build/libs/dxmon-${TRAVIS_TAG}.jar
+  on:
+    repo: hhu-bsinfo/dxmon
+    branch: master
+    tags: true
