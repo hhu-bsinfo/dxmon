@@ -17,17 +17,18 @@ public class DeviceLister {
 
     /**
      * Returns a list of available infiniband devices
+     *
      * @return list of ib devs
      */
     public static ArrayList<String> getIBs() {
         ArrayList<String> out = new ArrayList<>();
 
         File file = new File(SYS_IB);
-        if(!file.exists()) {
+        if (!file.exists()) {
             return out;
         }
 
-        for(File ibDevice : file.listFiles()) {
+        for (File ibDevice : file.listFiles()) {
             out.add(ibDevice.getName());
         }
 
@@ -36,39 +37,45 @@ public class DeviceLister {
 
     /**
      * Returns a list of all available nics
+     *
      * @return List with NICs
+     * @throws IOException
+     *         if the file could not be found or read
      */
-    public static ArrayList<String> getNICs() {
+    public static ArrayList<String> getNICs() throws IOException {
         return getContent(PROC_NICS, s -> s.substring(0, s.indexOf(':')).trim());
     }
 
     /**
      * Returns a list of all disks
+     *
      * @return List with disks
+     * @throws IOException
+     *         if the file could not be found or read
      */
-    public static ArrayList<String> getDisks() {
+    public static ArrayList<String> getDisks() throws IOException {
         return getContent(PROC_DISKS, s -> s.substring(s.lastIndexOf(' ')).trim());
     }
 
-
     /**
      * Helper method to read and parse certain proc files
-     * @param p_path File path
-     * @param p_filterFunction A function to filter each file in its own way
+     *
+     * @param p_path
+     *         File path
+     * @param p_filterFunction
+     *         A function to filter each file in its own way
      * @return List of filtered entries from a given path
+     * @throws IOException
+     *         if the file could not be found or read
      */
-    private static ArrayList<String> getContent(final String p_path, final Function<String, String> p_filterFunction) {
-        String[]  fileContent = null;
-        try {
-            fileContent = ProcSysFileReader.readCompleteFileOnce(p_path).split("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assert fileContent != null;
+    private static ArrayList<String> getContent(final String p_path, final Function<String, String> p_filterFunction)
+            throws IOException {
+        String[] fileContent;
+        fileContent = ProcSysFileReader.readCompleteFileOnce(p_path).split("\n");
 
         ArrayList<String> out = new ArrayList<>();
         for (int i = 2; i < fileContent.length; i++) {
-            if(fileContent[i].isEmpty() || fileContent[i].equals(" ")) {
+            if (fileContent[i].isEmpty() || fileContent[i].equals(" ")) {
                 continue;
             }
             out.add(p_filterFunction.apply(fileContent[i]));

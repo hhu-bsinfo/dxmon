@@ -13,6 +13,7 @@
 
 package de.hhu.bsinfo.dxmonitor.info;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import de.hhu.bsinfo.dxmonitor.state.MemState;
@@ -89,11 +90,19 @@ public class InstanceInfo {
         } catch (StateUpdateException ignored) {
         }
 
-        builder.append("  NICs: ");
-        builder.append(Arrays.toString(DeviceLister.getNICs().toArray()));
-        builder.append('\n');
-        builder.append("  Disks: ");
-        builder.append(Arrays.toString(DeviceLister.getDisks().toArray()));
+        try {
+            builder.append("  NICs: ");
+            builder.append(Arrays.toString(DeviceLister.getNICs().toArray()));
+        } catch (IOException ignored) {
+            builder.append("NA");
+        }
+        try {
+            builder.append('\n');
+            builder.append("  Disks: ");
+            builder.append(Arrays.toString(DeviceLister.getDisks().toArray()));
+        } catch (IOException ignored) {
+            builder.append("NA");
+        }
 
         return builder.toString();
     }
